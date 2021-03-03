@@ -38,25 +38,29 @@ LICENSE file in the root directory of this source tree.
 
         window.extAsyncInit = function () {
             console.log("done")
-            let response = {
-                attachment: {
-                    type: 'template',
-                    payload: {
-                        template_type: 'button',
-                        text:
-                            "OK, let's set your room preferences so I won't need to ask for them in the future.",
-                        buttons: [
-                            {
-                                type: 'web_url',
-                                url: 'https://youthful-neumann-340e3b.netlify.app/',
-                                title: 'Set preferences',
-                                webview_height_ratio: 'tall',
-                                messenger_extensions: true,
+            let message = {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "generic",
+                        "elements": [{
+                            "title": "I took Peter's 'Which Hat Are You?' Quiz",
+                            "image_url": "https://bot.peters-hats.com/img/hats/fez.jpg",
+                            "subtitle": "My result: Fez",
+                            "default_action": {
+                                "type": "web_url",
+                                "url": "https://bot.peters-hats.com/view_quiz_results.php?user=24601"
                             },
-                        ],
-                    },
-                },
-            }
+                            "buttons": [{
+                                "type": "web_url",
+                                "url": "https://bot.peters-hats.com/hatquiz.php?referer=24601",
+                                "title": "Take the Quiz",
+                                "messenger_extension": true
+                            }]
+                        }]
+                    }
+                }
+            };
             console.log(message)
             $('#share').click(function () {
                 MessengerExtensions.beginShareFlow(function (share_response) {
