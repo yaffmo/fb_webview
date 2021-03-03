@@ -14,72 +14,8 @@
 <body>
     <div class="header">
         <h1>Webview example </h1>
-        <h2>PSID: <span id="psid">unknown</span></h2>
     </div>
-    <form id="example_form" class="form">
-        <h2>Switch example</h2>
-        <label class="form-item">
-            <div class="form-input form-input-checkbox">
-                <input id="switch" type="checkbox" class="checkbox">
-                <div class="checkbox-slider"></div>
-            </div>
-            <div class="form-label">Switch me</div>
-        </label>
-        <h2>Text example</h2>
-        <div class="form-item">
-            <div class="form-input form-input-text">
-                <input id="text" type="text" required placeholder="Enter some text" class="text">
-            </div>
-        </div>
-        <h2>Correct app ids for The Bot Platform</h2>
-        <table>
-            <tr>
-                <th>Platform</th>
-                <th>TBP ID</th>
-            </tr>
-            <tr>
-                <td>Workplace</td>
-                <td>429523794128047</td>
-            </tr>
-            <tr>
-                <td>Messenger</td>
-                <td>853697284761471</td>
-            </tr>
-        </table>
-        <h2>Troubleshooting</h2>
-        <h3>Known error codes</h3>
-        <table>
-            <tr>
-                <th>code</th>
-                <th>reason</th>
-            </tr>
-            <tr>
-                <td>
-                    <pre>2071010</pre>
-                </td>
-                <td>Incorrect app id, make sure you are using the correct app id.<br />The same app needs to whitelist
-                    the domain and be the current bot flow.</td>
-            </tr>
-            <tr>
-                <td>
-                    <pre>2071011</pre>
-                </td>
-                <td>Domain has not been whitelisted, make sure <a
-                        href="https://help.thebotplatform.com/en/articles/3438938-getting-a-user-id-from-within-a-webview"
-                        target="_blank">whitelist the domain</a>.</td>
-            </tr>
-            <tr>
-                <td>
-                    <pre>2018164</pre>
-                </td>
-                <td>Incorrect app id, make sure you are using the correct app id.<br />The same app needs to whitelist
-                    the domain and be the current bot flow.</td>
-            </tr>
-        </table>
-        <div class="footer">
-            <button type="submit" class="submit button">Save</button>
-        </div>
-    </form>
+
     <script>
         window.extAsyncInit = function () {
             // the Messenger Extensions JS SDK is done loading 
