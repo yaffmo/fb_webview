@@ -64,20 +64,16 @@ LICENSE file in the root directory of this source tree.
             console.log(message)
             $('#share').click(function () {
                 console.log("trigger")
-                MessengerExtensions.beginShareFlow(function (share_response) {
-
-                    // User dismissed without error, but did they share the message?
-                    if (share_response.is_sent) {
-                        // The user actually did share. 
-                        // Perhaps close the window w/ requestCloseBrowser().
+                MessengerExtensions.beginShareFlow(function (result) {
+                    document.querySelector('.share').innerText = JSON.stringify(result, null, 2)
+                }, function () { }, {
+                    attachment: {
+                        type: 'image',
+                        payload: {
+                            url: 'https://example.org/image.png'
+                        }
                     }
-                },
-                    function (errorCode, errorMessage) {
-                        // An error occurred in the process
-
-                    },
-                    message,
-                    "broadcast");
+                }, 'broadcast')
             });
             $("#target").click(function () {
                 MessengerExtensions.requestCloseBrowser(function success() {
