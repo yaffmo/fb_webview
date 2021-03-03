@@ -37,28 +37,29 @@ LICENSE file in the root directory of this source tree.
 
         window.extAsyncInit = function () {
             console.log("done")
-            let message = {
+            var messageToShare = {
                 "attachment": {
                     "type": "template",
                     "payload": {
                         "template_type": "generic",
                         "elements": [{
-                            "title": "I took Peter's 'Which Hat Are You?' Quiz",
-                            "image_url": "https://bot.peters-hats.com/img/hats/fez.jpg",
-                            "subtitle": "My result: Fez",
+                            "title": "title text",
+                            "image_url": "image url",
+                            "subtitle": "subtitle text",
                             "default_action": {
                                 "type": "web_url",
-                                "url": "https://bot.peters-hats.com/view_quiz_results.php?user=24601"
+                                "url": "url"
                             },
                             "buttons": [{
                                 "type": "web_url",
-                                "url": "https://bot.peters-hats.com/hatquiz.php?referer=24601",
-                                "title": "Take the Quiz"
+                                "url": "button url",
+                                "title": "button title",
+                                "messenger_extension": true
                             }]
                         }]
                     }
                 }
-            };
+            }
             console.log(message)
             $('#share-messenger').click(function () {
                 MessengerExtensions.beginShareFlow(function success(response) {
