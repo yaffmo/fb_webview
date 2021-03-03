@@ -63,8 +63,9 @@ LICENSE file in the root directory of this source tree.
             };
             console.log(message)
             $('#share').click(function () {
+                console.log("trigger")
                 MessengerExtensions.beginShareFlow(function (share_response) {
-                    console.log("trigger")
+
                     // User dismissed without error, but did they share the message?
                     if (share_response.is_sent) {
                         // The user actually did share. 
