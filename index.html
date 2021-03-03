@@ -62,7 +62,7 @@ LICENSE file in the root directory of this source tree.
                 }
             };
             console.log(message)
-            $('#share-messenger').click(function () {
+            $('#share').click(function () {
                 MessengerExtensions.beginShareFlow(function (share_response) {
                     console.log("trigger")
                     // User dismissed without error, but did they share the message?
@@ -86,7 +86,7 @@ LICENSE file in the root directory of this source tree.
 
     <h1>Messenger Demo</h1>
 
-    <button id="target" class="btn btn-primary">Share Link</button>
+    <button id="share" class="btn btn-primary">Share Link</button>
 
 
 </body>
