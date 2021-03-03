@@ -81,90 +81,28 @@
         </div>
     </form>
     <script>
-        var APP_ID = "429523794128047"; // the bot platform for workplace
-        // var APP_ID = "853697284761471"; // the bot platform for messenger
-        var psid = "unknown"; // not yet discovered
-
-        // include facebook messenger extensions
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) { return; }
-            js = d.createElement(s); js.id = id;
-            js.src = "https://connect.facebook.net/en_US/messenger.Extensions.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, "script", "Messenger"));
-
-        // extensions are loaded
         window.extAsyncInit = function () {
+            // the Messenger Extensions JS SDK is done loading 
+            console.log("using getUserId in", window.name)
 
-            var isSupported = MessengerExtensions.isInExtension();
-
-            // get the user context from the extensions
-            MessengerExtensions.getContext(APP_ID,
+            MessengerExtensions.getUserID(function success(uids) {
+                // User ID was successfully obtained. 
+                var psid = uids.psid;
+                console.log(psid);
+                document.getElementById("userId").innerText = "your User Id Is " + psid;
+            }, function error(err, errorMessage) {
+                // Error handling code
+                console.log("some Error", err, errorMessage)
+            });
+            MessengerExtensions.getContext('<appID>',
                 function success(result) {
-                    console.log(result);
-                    window.testing = result;
-                    // get the page scope id for the person
-                    psid = result.psid;
-                    if (psid === "") {
-                        psid = "ERROR, blank from fb";
-                    }
-                    $("#psid").html(psid);
-                    alert("PSID found: '" + psid + "'");
+                    console.log("success", result)
                 },
                 function error(result) {
-                    alert("Messenger Extensions are not supported in this webview. Code: " + JSON.stringify(result));
+                    console.log("error", result)
                 }
             );
         };
-
-        $(function () {
-            // when form is submitted
-            $("#example_form").submit(function (e) {
-                e.preventDefault();
-                var text = $("#text").val();
-                if (text) {
-
-                    // post it to the server
-                    $.post("post.php", {
-                        psid: psid,
-                        text: text,
-                        switch: $("#switch").is(":checked")
-                    }, function (data) {
-                        if (data.success) {
-                            alert("Success, the form has been submitted")
-
-                            // close the webview now
-                            closeWebview();
-                        }
-                        else {
-                            alert(data.error);
-                        }
-                    }, "json")
-                        .fail(function (e) {
-                            alert("There was an error submitting your form, please try again later");
-                            alert(e.responseText);
-                            console.log(e);
-                        })
-                        .always(function () {
-
-                        });
-
-                    return true;
-                } else {
-                    return false;
-                }
-            })
-        })
-
-        // There is an easy method to close the webview from javascript
-        function closeWebview() {
-            MessengerExtensions.requestCloseBrowser(function success() {
-                // webview closed
-            }, function error(err) {
-            });
-        };
-
     </script>
     <script src="js/scripts.js?v=1.1"></script>
 </body>
