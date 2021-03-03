@@ -37,41 +37,41 @@ LICENSE file in the root directory of this source tree.
 
         window.extAsyncInit = function () {
             console.log("done")
-            var messageToShare = {
+            let message = {
                 "attachment": {
                     "type": "template",
                     "payload": {
                         "template_type": "generic",
                         "elements": [{
-                            "title": "title text",
-                            "image_url": "image url",
-                            "subtitle": "subtitle text",
+                            "title": "I took Peter's 'Which Hat Are You?' Quiz",
+                            "image_url": "https://bot.peters-hats.com/img/hats/fez.jpg",
+                            "subtitle": "My result: Fez",
                             "default_action": {
                                 "type": "web_url",
-                                "url": "url"
+                                "url": "https://bot.peters-hats.com/view_quiz_results.php?user=24601"
                             },
                             "buttons": [{
                                 "type": "web_url",
-                                "url": "button url",
-                                "title": "button title",
-                                "messenger_extension": true
+                                "url": "https://bot.peters-hats.com/hatquiz.php?referer=24601",
+                                "title": "Take the Quiz"
                             }]
                         }]
                     }
                 }
-            }
+            };
             console.log(message)
             $('#share-messenger').click(function () {
-                MessengerExtensions.beginShareFlow(function success(response) {
-                    if (response.is_sent) {
-                        console.log("Shared in messenger")
-                    } else {
-                        console.log("Did not share in messenger")
+                MessengerExtensions.beginShareFlow(function (share_response) {
+                    // User dismissed without error, but did they share the message?
+                    if (share_response.is_sent) {
+                        // The user actually did share. 
+                        // Perhaps close the window w/ requestCloseBrowser().
                     }
-                }, function error(errorCode, errorMessage) {
-                    console.log("error in sharing in messenger " + errorCode + ", " +
-                        errorMessage)
                 },
+                    function (errorCode, errorMessage) {
+                        // An error occurred in the process
+
+                    },
                     message,
                     "broadcast");
             });
